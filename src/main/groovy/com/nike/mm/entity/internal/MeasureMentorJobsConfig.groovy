@@ -13,21 +13,21 @@ class MeasureMentorJobsConfig {
     @Field(type = FieldType.String,
             index = FieldIndex.analyzed,
             searchAnalyzer = "standard",
-            indexAnalyzer = "standard",
+            
             store = true)
     String id;
 
     @Field(type = FieldType.String,
             index = FieldIndex.analyzed,
             searchAnalyzer = "standard",
-            indexAnalyzer = "standard",
+            
             store = true)
     String name;
 
     @Field(type = FieldType.Boolean,
             index = FieldIndex.analyzed,
             searchAnalyzer = "standard",
-            indexAnalyzer = "standard",
+            
             store = true)
     boolean jobOn;
 

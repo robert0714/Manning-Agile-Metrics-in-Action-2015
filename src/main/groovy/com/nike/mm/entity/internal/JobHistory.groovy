@@ -13,42 +13,42 @@ class JobHistory {
 	@Field(type = FieldType.String,
 			index = FieldIndex.analyzed,
 			searchAnalyzer = "standard",
-			indexAnalyzer = "standard",
+			
 			store = true)
 	String id
 
 	@Field(type = FieldType.String,
 			index = FieldIndex.analyzed,
 			searchAnalyzer = "standard",
-			indexAnalyzer = "standard",
+			
 			store = true)
 	String jobid
 
 	@Field(type = FieldType.Date,
 			index = FieldIndex.analyzed,
 			searchAnalyzer = "standard",
-			indexAnalyzer = "standard",
+			
 			store = true)
 	Date startDate
 
 	@Field(type = FieldType.Date,
 			index = FieldIndex.analyzed,
 			searchAnalyzer = "standard",
-			indexAnalyzer = "standard",
+			
 			store = true)
 	Date endDate
 
 	@Field(type = FieldType.String,
 			index = FieldIndex.analyzed,
 			searchAnalyzer = "standard",
-			indexAnalyzer = "standard",
+			
 			store = true)
 	Status status
 
 	@Field(type = FieldType.String,
 			index = FieldIndex.analyzed,
 			searchAnalyzer = "standard",
-			indexAnalyzer = "standard",
+			
 			store = true)
 	String comments
 

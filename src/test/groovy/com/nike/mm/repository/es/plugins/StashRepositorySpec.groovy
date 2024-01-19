@@ -6,7 +6,7 @@ import com.nike.mm.service.IUtilitiesService
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.SpringApplicationConfiguration
+
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
@@ -17,7 +17,7 @@ import spock.lang.Specification
 import java.text.SimpleDateFormat
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = MeasurementorApplication.class)
+
 @WebAppConfiguration
 class StashRepositorySpec extends Specification {
 

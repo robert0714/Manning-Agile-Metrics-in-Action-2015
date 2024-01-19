@@ -4,7 +4,7 @@ import org.junit.Test
 import spock.lang.Specification
 
 //@RunWith(SpringJUnit4ClassRunner.class)
-//@SpringApplicationConfiguration(classes = MeasurementorApplication.class)
+//
 //@WebAppConfiguration
 class GithubRepositorySpec extends Specification {
 

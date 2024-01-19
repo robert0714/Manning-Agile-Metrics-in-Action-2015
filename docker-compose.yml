@@ -1,0 +1,49 @@
+version: "3.3" 
+services:
+  measurementor:
+     image: measurementor
+     build: .
+     container_name: measurementor
+     restart: always 
+     network_mode: host
+    #  network_mode: bridge
+     depends_on:
+       - elasticsearch
+     environment:
+       - TZ=Asia/Taipei
+       - mm.elasticsearch.address=localhost
+       - mm.elasticsearch.port=9200
+       - mm.elasticsearch.cluster.name=docker-cluster
+       - mm.elasticsearch.embedded=true
+    #  ports:
+    #   - "8080:8080"   
+  elasticsearch:
+    #  image: itzg/elasticsearch
+     image: docker.elastic.co/elasticsearch/elasticsearch:${TAG:-7.17.16} 
+     container_name: elasticsearch
+     restart: always 
+     environment:
+       - TZ=Asia/Taipei
+      #  - PLUGINS=elasticsearch/marvel/latest
+       - xpack.security.enabled=false
+       - "discovery.type=single-node"
+       - "transport.host=127.0.0.1"
+       - "http.host=0.0.0.0"
+     network_mode: host
+    #  network_mode: bridge
+    #  ports:
+    #   - "9200:9200"
+    #   - "9300:9300"
+  kibana:
+    container_name: kibana
+    # image: kibana:4.4
+    image: docker.elastic.co/kibana/kibana:${TAG:-7.17.16}
+    restart: always
+    environment:
+      - TZ=Asia/Taipei
+      - ELASTICSEARCH_HOSTS=http://localhost:9200 
+    network_mode: host
+    # network_mode: bridge
+    # ports: 
+    # - "5601:5601"
+    depends_on: ['elasticsearch']

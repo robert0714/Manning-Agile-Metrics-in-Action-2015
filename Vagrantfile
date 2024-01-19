@@ -1,21 +1,58 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-Vagrant.configure(2) do |config|
-  
-  config.vm.box = "phusion/ubuntu-14.04-amd64"
+# Check for missing plugins
+required_plugins = %w(vagrant-hostmanager)
+plugin_installed = false
+required_plugins.each do |plugin|
+  unless Vagrant.has_plugin?(plugin)
+    system "vagrant plugin install #{plugin}"
+    plugin_installed = true
+  end
+end
 
-  config.vm.network "forwarded_port", guest: 8080, host: 8080
-  config.vm.network "forwarded_port", guest: 9200, host: 9200
-  config.vm.network "forwarded_port", guest: 9300, host: 9300
-  config.vm.network "forwarded_port", guest: 5601, host: 5601
-  # config.vm.network "private_network", ip: "192.168.33.10"
+# If new plugins installed, restart Vagrant process
+if plugin_installed === true
+  exec "vagrant #{ARGV.join' '}"
+end
 
-  config.vm.synced_folder "../measurementor", "/home/vagrant/measurementor"
-  #config.vm.synced_folder "../data", "/home/vagrant/data"
+Vagrant.configure("2") do |config|
+  if (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
+    config.vm.synced_folder ".", "/vagrant", mount_options: ["dmode=700,fmode=600"]
+  else
+    config.vm.synced_folder ".", "/vagrant"
+  end
+ 
+  config.ssh.insert_key = false
+  config.ssh.private_key_path = ['~/.vagrant.d/insecure_private_key', '~/.ssh/id_rsa']
+  config.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "~/.ssh/authorized_keys"
 
-  config.vm.provision "shell", path: "conf/vagrant/java.sh"
-  config.vm.provision "shell", path: "conf/vagrant/node.sh"
-  config.vm.provision "shell", path: "conf/vagrant/docker.sh"
-  config.vm.provision "shell", path: "conf/vagrant/kibana.sh"
+  # vagrant-hostmanager options
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = false # Your permission would be denied
+  config.hostmanager.manage_guest = true
+
+  # Forward ssh agent to easily ssh into the different machines
+  config.ssh.forward_agent = true
+
+  config.vm.box = "bento/ubuntu-22.04"
+  config.vm.hostname = "measurementor.local.dev"
+
+  config.vm.network :private_network, ip: "10.100.198.101"  
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.gui = false
+    vb.name = "measurementor"
+    vb.memory = "5120"
+    vb.cpus = "2"
+  end
+  config.vm.provision :docker 
+  if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.scope = :box
+  end
+  if Vagrant.has_plugin?("vagrant-vbguest")
+    config.vbguest.auto_update = false
+    config.vbguest.no_install = false
+    config.vbguest.no_remote = false
+  end
 end

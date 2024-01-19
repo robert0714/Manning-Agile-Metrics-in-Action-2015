@@ -17,28 +17,28 @@ class CompoundKey {
     @Field(type = FieldType.String,
             index = FieldIndex.analyzed,
             searchAnalyzer = "standard",
-            indexAnalyzer = "standard",
+            
             store = true)
     String key
 
     @Field(type = FieldType.String,
             index = FieldIndex.analyzed,
             searchAnalyzer = "standard",
-            indexAnalyzer = "standard",
+            
             store = true)
     String[] jiraProject
 
     @Field(type = FieldType.String,
             index = FieldIndex.analyzed,
             searchAnalyzer = "standard",
-            indexAnalyzer = "standard",
+            
             store = true)
     String[] repo
 
     @Field(type = FieldType.String,
             index = FieldIndex.analyzed,
             searchAnalyzer = "standard",
-            indexAnalyzer = "standard",
+            
             store = true)
     String[] people
 

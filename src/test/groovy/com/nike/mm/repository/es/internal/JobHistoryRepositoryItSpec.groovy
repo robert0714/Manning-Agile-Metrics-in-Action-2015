@@ -5,7 +5,7 @@ import com.nike.mm.entity.internal.JobHistory
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.SpringApplicationConfiguration
+
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
@@ -14,7 +14,7 @@ import org.springframework.test.context.web.WebAppConfiguration
 import spock.lang.Specification
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = MeasurementorApplication.class)
+
 @WebAppConfiguration
 class JobHistoryRepositoryItSpec extends Specification {
 

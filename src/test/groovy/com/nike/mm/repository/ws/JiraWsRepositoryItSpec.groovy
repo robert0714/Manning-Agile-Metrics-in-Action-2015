@@ -13,7 +13,7 @@ import spock.lang.Specification
  * Created by rparr2 on 6/17/15.
  */
 //@RunWith(SpringJUnit4ClassRunner.class)
-//@SpringApplicationConfiguration(classes = MeasurementorApplication.class)
+//
 //@WebAppConfiguration
 class JiraWsRepositoryItSpec extends Specification {
 

@@ -1,54 +1,56 @@
-apply plugin: 'checkstyle'
-checkstyle {
-    ignoreFailures = true 
-    configFile = rootProject.file('conf/checkstyle/checkstyle.xml')
-}
-
 // JaCoCo
 apply plugin: 'jacoco'
 
 // set jacoco version and output directory
 jacoco {
-    toolVersion = "0.7.0.201403182114"
+    toolVersion = "0.8.11"
 }
 
 // Applying jacoco to the run task
 jacoco {
-    applyTo run
+     applyTo bootRun
 }
 
 task applicationCodeCoverageReport(type:JacocoReport){
-    executionData run
+    executionData bootRun
     sourceSets sourceSets.main
 }
 
 jacocoTestReport {
     reports {
-        xml.enabled true
-        csv.enabled true
-        html.destination "${buildDir}/jacocoHtml"
+        xml.enabled = true
+        csv.enabled = true
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
     }
 }
 
 test {
     jacoco {
-        append = false
-        destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
-        classDumpFile = file("$buildDir/jacoco/classpathdumps")
+        enabled = true
+        destinationFile = layout.buildDirectory.file('jacoco/jacocoTest.exec').get().asFile
+        classDumpDir = layout.buildDirectory.dir('jacoco/classpathdumps').get().asFile
     }
 }
 
 test.finalizedBy jacocoTestReport
 
+// checkstyle
+
+// apply plugin: 'checkstyle'
+// checkstyle {
+//     ignoreFailures = true 
+//     configFile = rootProject.file('conf/checkstyle/checkstyle.xml')
+// }
+
 // FindBugs
-apply plugin: 'findbugs'
-findbugs {
-    ignoreFailures = true
-}
+// apply plugin: 'findbugs'
+// findbugs {
+//     ignoreFailures = true
+// }
 
 // PMD
-apply plugin: 'pmd'
-pmd {
-    toolVersion = '5.0.5'
-} 
+// apply plugin: 'pmd'
+// pmd {
+//     toolVersion = '6.21.0'
+// } 
 //tasks.withType(Pmd) { reports.html.enabled true }
